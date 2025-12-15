@@ -1,21 +1,23 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
 
 const app = document.querySelector('#app');
 
-// Data for the trip
-const startDate = new Date('2025-01-18');
-const endDate = new Date('2025-01-26');
+/* --- State Management --- */
+let currentPage = 'home'; // 'home' or 'checklist'
 
-// Helper to format date
+/* --- Data: Itinerary --- */
+const startDate = new Date('2026-01-18');
+const endDate = new Date('2026-01-26');
+
 const formatDate = (date) => {
   return new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).format(date);
 };
 
-// Itinerary Data
 const itineraryData = {
-  "2025-01-18": [
+  "2026-01-18": [
     {
-      time: "07:40 AM - 12:00 PM",
+      time: "07:40 AM - 10:50 AM",
       title: "Flight to Delhi",
       location: "Bangalore (BLR) -> Delhi (DEL)",
       image: "https://placehold.co/200x200/38bdf8/white?text=Flight",
@@ -59,7 +61,6 @@ const itineraryData = {
   ]
 };
 
-// Generate dates
 const getDates = (start, end) => {
   const dates = [];
   let current = new Date(start);
@@ -72,13 +73,85 @@ const getDates = (start, end) => {
 
 const tripDates = getDates(startDate, endDate);
 
-// Render Timeline
-const renderTimeline = () => {
-  const timelineHtml = tripDates.map((date, index) => {
+/* --- Data: Packing List --- */
+const packingList = {
+  "Essentials & Money": [
+    "Cash (4-5k)",
+    "Carry Bags",
+    "Tickets & ID Cards",
+    "Sun Glasses"
+  ],
+  "Clothing": [
+    "Thermals",
+    "Socks",
+    "Shoes",
+    "Beanie",
+    "Gloves",
+    "Fleece Jacket",
+    "Outer Jacket"
+  ],
+  "Electronics": [
+    "Power Bank",
+    "Torch Light"
+  ],
+  "Toiletries": [
+    "Toothbrush & Paste",
+    "Soap",
+    "Scent / Perfume",
+    "Towel",
+    "Wet Wipes",
+    "Shower Gel",
+    "Toilet Paper",
+    "Moisturizer"
+  ],
+  "Health & Safety": [
+    "Band-aids",
+    "Safety Pins",
+    "Masks",
+    "Tablets (Altitude Sickness)",
+    "Tablets (Motion Sickness)",
+    "Tablets (Digestion)"
+  ],
+  "Snacks & Misc": [
+    "Mentos / Center Fresh",
+    "Protein Bars"
+  ]
+};
+
+
+/* --- Components --- */
+
+const Navbar = () => `
+  <nav class="navbar fixed-top navbar-expand-lg" style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="font-family: var(--font-heading); color: var(--primary); font-size: 1.5rem;" onclick="navigateTo('home'); return false;">Journey 2026</a>
+      <div class="d-flex gap-3">
+        <button class="btn btn-sm ${currentPage === 'home' ? 'btn-light' : 'btn-outline-light'}" onclick="navigateTo('home')">Itinerary</button>
+        <button class="btn btn-sm ${currentPage === 'checklist' ? 'btn-light' : 'btn-outline-light'}" onclick="navigateTo('checklist')">Packing List</button>
+      </div>
+    </div>
+  </nav>
+`;
+
+const Footer = () => `
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-title">A Personal Project Website</p>
+      <p class="footer-desc">Designed to simplify travel planning and capture moments.</p>
+      <div class="footer-links">
+        <span>© 2026 Journey to the Horizon</span>
+        <span class="separator">•</span>
+        <span>Built with Vite & Vanilla JS</span>
+      </div>
+    </div>
+  </footer>
+`;
+
+const RenderTimeline = () => {
+  return tripDates.map((date, index) => {
     const dateKey = date.toISOString().split('T')[0];
     const dayData = itineraryData[dateKey];
 
-    // Build schedule HTML if data exists
     let detailsHtml = '';
     if (dayData) {
       detailsHtml = dayData.map(item => `
@@ -124,12 +197,9 @@ const renderTimeline = () => {
       </div>
     `;
   }).join('');
-
-  return timelineHtml;
 };
 
-// Template Construction
-app.innerHTML = `
+const HomePage = () => `
   <div class="hero">
     <div class="hero-background-grid">
       <img src="images/delhi_wallpaper.webp" class="hero-bg-img" alt="Delhi">
@@ -140,8 +210,7 @@ app.innerHTML = `
     </div>
     <div class="hero-content">
       <h1>The Journey Awaits</h1>
-
-      <p>January 18 - January 26, 2025</p>
+      <p>January 18 - January 26, 2026</p>
       <div style="margin-top: 2rem;">
         <span class="text-gradient" style="font-size: 1.2rem; font-weight: 600;">9 Days of Adventure</span>
       </div>
@@ -155,41 +224,90 @@ app.innerHTML = `
 
   <div class="container timeline-section">
     <div class="timeline">
-      ${renderTimeline()}
+      ${RenderTimeline()}
     </div>
   </div>
 `;
 
-// Global toggle function
+const ChecklistPage = () => {
+  const categoriesHtml = Object.entries(packingList).map(([category, items]) => `
+    <div class="col-md-6 mb-4">
+      <div class="glass-card h-100" style="padding: 1.5rem;">
+        <h3 style="color: var(--primary); font-family: var(--font-heading); margin-bottom: 1rem;">${category}</h3>
+        <ul class="list-unstyled">
+          ${items.map(item => `
+            <li class="d-flex align-items-center mb-2" style="font-size: 1.1rem; color: var(--text-main);">
+              <input class="form-check-input me-3" type="checkbox" id="${item.replace(/\s+/g, '')}" style="width: 1.2em; height: 1.2em; border-color: var(--primary); background-color: transparent;">
+              <label class="form-check-label" for="${item.replace(/\s+/g, '')}">${item}</label>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="container" style="padding-top: 100px; min-height: 80vh;">
+      <div class="text-center mb-5">
+        <h1 class="text-gradient" style="font-family: var(--font-heading); font-size: 3rem;">Packing List</h1>
+        <p style="color: var(--text-muted);">Don't forget the essentials!</p>
+      </div>
+      <div class="row">
+        ${categoriesHtml}
+      </div>
+    </div>
+  `;
+};
+
+/* --- Router & Rendering --- */
+
+window.navigateTo = (page) => {
+  currentPage = page;
+  renderApp();
+  window.scrollTo(0, 0);
+};
+
+const renderApp = () => {
+  app.innerHTML = `
+    ${Navbar()}
+    <main>
+      ${currentPage === 'home' ? HomePage() : ChecklistPage()}
+    </main>
+    ${Footer()}
+  `;
+
+  // Re-attach observers if on home page
+  if (currentPage === 'home') {
+    attachObservers();
+  }
+};
+
+/* --- Event Handlers & Observers --- */
+
 window.toggleCard = (card) => {
   const item = card.closest('.timeline-item');
-
-  // Optional: distinct accordion behavior (close others)
-  // document.querySelectorAll('.timeline-item.expanded-width').forEach(i => {
-  //   if (i !== item) {
-  //     i.classList.remove('expanded-width');
-  //     i.querySelector('.glass-card').classList.remove('expanded');
-  //   }
-  // });
-
   item.classList.toggle('expanded-width');
   card.classList.toggle('expanded');
 };
 
-// Intersection Observer
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px"
-};
+const attachObservers = () => {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px"
+  };
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    observer.observe(item);
   });
-}, observerOptions);
+}
 
-document.querySelectorAll('.timeline-item').forEach(item => {
-  observer.observe(item);
-});
+// Initial Render
+renderApp();
