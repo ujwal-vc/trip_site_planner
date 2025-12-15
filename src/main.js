@@ -132,10 +132,10 @@ const renderTimeline = () => {
 app.innerHTML = `
   <div class="hero">
     <div class="hero-background-grid">
-      <img src="/images/delhi_wallpaper.webp" class="hero-bg-img" alt="Delhi">
-      <img src="/images/agra_taj_wallpaper.jpeg" class="hero-bg-img" alt="Agra">
-      <img src="/images/kedarkanth_wallpaper.jpeg" class="hero-bg-img" alt="Mountains">
-      <img src="/images/Rishikesh.jpeg" class="hero-bg-img" alt="Rishikesh">
+      <img src="images/delhi_wallpaper.webp" class="hero-bg-img" alt="Delhi">
+      <img src="images/agra_taj_wallpaper.jpeg" class="hero-bg-img" alt="Agra">
+      <img src="images/kedarkanth_wallpaper.jpeg" class="hero-bg-img" alt="Mountains">
+      <img src="images/Rishikesh.jpeg" class="hero-bg-img" alt="Rishikesh">
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
