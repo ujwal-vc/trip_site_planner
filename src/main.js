@@ -8,7 +8,7 @@ let currentPage = 'home'; // 'home' or 'checklist'
 
 /* --- Data: Itinerary --- */
 const startDate = new Date('2026-01-18');
-const endDate = new Date('2026-01-26');
+const endDate = new Date('2026-01-27');
 
 const formatDate = (date) => {
   return new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).format(date);
@@ -24,39 +24,365 @@ const itineraryData = {
       description: "Depart from Bangalore (BLR) and arrive in New Delhi (DEL). Transfer to hotel and freshen up."
     },
     {
-      time: "02:00 PM - 02:00 PM",
-      title: "India Gate & War Memorial",
-      location: "Kartavya Path, New Delhi",
-      image: "https://placehold.co/200x200/f472b6/white?text=India+Gate",
-      description: "Start at India Gate for photos and a walk around the lawns. Visit the National War Memorial nearby for a glimpse of India's military history."
+      time: "11:30 AM - 01:30 PM",
+      title: "Nizamuddin Station (Drop Luggage)",
+      location: "Hazrat Nizamuddin Railway Station",
+      image: "https://placehold.co/200x200/a855f7/white?text=Station",
+      description: "Reach Nizamuddin Station and deposit luggage in the cloak room for safekeeping."
     },
     {
-      time: "02:00 PM - 03:30 PM",
-      title: "Lunch & Chill",
-      location: "Khan Market / Connaught Place",
-      image: "https://placehold.co/200x200/fbbf24/white?text=Lunch",
-      description: "Head to Khan Market or Connaught Place (CP). Enjoy a relaxed lunch (Biryani, North Indian, or Burgers) and browse shops or relax in Central Park."
-    },
-    {
-      time: "03:30 PM - 05:30 PM",
-      title: "Humayun’s Tomb or Qutub Minar",
-      location: "Mathura Road / Seth Sarai",
+      time: "02:00 PM - 03:00 PM",
+      title: "Humayun's Tomb & Food",
+      location: "Mathura Road",
       image: "https://placehold.co/200x200/a78bfa/white?text=Humayun's+Tomb",
-      description: "<strong>Option A:</strong> Humayun’s Tomb (Mughal architecture, gardens).<br><strong>Option B:</strong> Qutub Minar (UNESCO site, tall minaret)."
+      description: "Explore the beautiful Mughal architecture of Humayun's Tomb and grab some quick bites nearby."
+    },
+    {
+      time: "03:30 PM - 04:30 PM",
+      title: "Red Fort",
+      location: "Netaji Subhash Marg",
+      image: "https://placehold.co/200x200/ef4444/white?text=Red+Fort",
+      description: "Visit the historic Red Fort (Lal Qila) and admire the massive sandstone walls."
     },
     {
       time: "05:30 PM - 07:00 PM",
-      title: "Sunset & Early Evening",
-      location: "Sunder Nursery / Hauz Khas",
-      image: "https://placehold.co/200x200/60a5fa/white?text=Sunset",
-      description: "If Humayun’s: Sunder Nursery for lake/cafe vibes.<br>If Qutub: Hauz Khas Village for sunset and rooftop cafes."
+      title: "Chandni Chowk",
+      location: "Old Delhi",
+      image: "https://placehold.co/200x200/fbbf24/white?text=Chandni+Chowk",
+      description: "Experience the chaos and charm of Old Delhi. Shop, eat street food (Paranthewali Gali), and explore."
     },
     {
-      time: "07:00 PM - 08:00 PM",
-      title: "Dinner & Night Vibes",
-      location: "Connaught Place (CP)",
+      time: "07:30 PM - 08:00 PM",
+      title: "India Gate & War Memorial",
+      location: "Kartavya Path",
+      image: "https://placehold.co/200x200/f472b6/white?text=India+Gate",
+      description: "A quick evening visit to see the illuminated India Gate and War Memorial."
+    },
+    {
+      time: "08:00 PM - 08:30 PM",
+      title: "Dinner",
+      location: "Near India Gate / Central Delhi",
       image: "https://placehold.co/200x200/f87171/white?text=Dinner",
-      description: "Return to Connaught Place for lively pubs/cafes, or stay near Khan Market/Lodhi Road for a quieter dinner."
+      description: "Enjoy a hearty dinner before heading back to the station."
+    },
+    {
+      time: "11:50 PM",
+      title: "Train to Dehradun",
+      location: "Hazrat Nizamuddin Station",
+      image: "https://placehold.co/200x200/60a5fa/white?text=Train",
+      description: "Board the train from Nizamuddin to Dehradun. Overnight journey."
+    }
+  ],
+  "2026-01-19": [
+    {
+      time: "05:45 AM",
+      title: "Arrival in Dehradun",
+      location: "Dehradun Railway Station",
+      image: "https://placehold.co/200x200/38bdf8/white?text=Dehradun",
+      description: "Arrive at Dehradun station early morning."
+    },
+    {
+      time: "08:00 AM",
+      title: "Fresh Up & Ready",
+      location: "Hotel in Dehradun",
+      image: "https://placehold.co/200x200/f472b6/white?text=Hotel",
+      description: "Check into a hotel to freshen up and get ready for the journey."
+    },
+    {
+      time: "07:30 AM - 08:00 AM",
+      title: "Assemble & Depart",
+      location: "Dehradun",
+      image: "https://placehold.co/200x200/fbbf24/white?text=Depart",
+      description: "Gather with the group and start the drive towards Sankri (Base Camp)."
+    },
+    {
+      time: "08:30 AM - 09:00 AM",
+      title: "Breakfast Stop",
+      location: "Purola / Roadside Dhaba",
+      image: "https://placehold.co/200x200/a78bfa/white?text=Breakfast",
+      description: "Stop for a hearty breakfast on the way."
+    },
+    {
+      time: "01:30 PM - 02:00 PM",
+      title: "Lunch Break",
+      location: "Mori Area",
+      image: "https://placehold.co/200x200/60a5fa/white?text=Lunch",
+      description: "Enjoy lunch with scenic views."
+    },
+    {
+      time: "04:30 PM - 05:30 PM",
+      title: "Reach Sankri",
+      location: "Sankri (6,400 ft)",
+      image: "https://placehold.co/200x200/f87171/white?text=Sankri",
+      description: "Arrive at Sankri base camp. The gateway to Har Ki Dun and Kedarkantha."
+    },
+    {
+      time: "06:00 PM - 07:00 PM",
+      title: "Check-in & Walk",
+      location: "Sankri",
+      image: "https://placehold.co/200x200/34d399/white?text=Walk",
+      description: "Check-in to guesthouse/homestay. Tea and short acclimatization walk."
+    },
+    {
+      time: "08:00 PM",
+      title: "Dinner & Stay",
+      location: "Sankri Guesthouse",
+      image: "https://placehold.co/200x200/fb923c/white?text=Dinner",
+      description: "Dinner and overnight stay."
+    }
+  ],
+  "2026-01-20": [
+    {
+      time: "07:00 AM",
+      title: "Wake up & Breakfast",
+      location: "Sankri",
+      image: "https://placehold.co/200x200/38bdf8/white?text=Morning",
+      description: "Start the day with a good meal."
+    },
+    {
+      time: "08:30 AM",
+      title: "Start Trek",
+      location: "Sankri -> Juda Ka Talab",
+      image: "https://placehold.co/200x200/22c55e/white?text=Trek",
+      description: "Begin the 4km trek towards Juda Ka Talab."
+    },
+    {
+      time: "11:00 AM",
+      title: "Short Break",
+      location: "Trail",
+      image: "https://placehold.co/200x200/f472b6/white?text=Break",
+      description: "Water and snacks break."
+    },
+    {
+      time: "01:00 PM - 02:00 PM",
+      title: "Reach Juda Ka Talab",
+      location: "Juda Ka Talab (9,100 ft)",
+      image: "https://placehold.co/200x200/3b82f6/white?text=Lake",
+      description: "Arrive at the frozen lake campsite."
+    },
+    {
+      time: "Afternoon",
+      title: "Rest & Photography",
+      location: "Campsite",
+      image: "https://placehold.co/200x200/a855f7/white?text=Photo",
+      description: "Acclimatization, relax and take photos of the stunning views."
+    },
+    {
+      time: "07:30 PM",
+      title: "Dinner & Stay",
+      location: "Tents",
+      image: "https://placehold.co/200x200/6366f1/white?text=Camp",
+      description: "Dinner under the stars and overnight stay in tents."
+    }
+  ],
+  "2026-01-21": [
+    {
+      time: "07:00 AM",
+      title: "Breakfast",
+      location: "Juda Ka Talab",
+      image: "https://placehold.co/200x200/fbbf24/white?text=Food",
+      description: "Fuel up for the day."
+    },
+    {
+      time: "08:30 AM",
+      title: "Start Trek",
+      location: "towards Kedarkantha Base",
+      image: "https://placehold.co/200x200/ef4444/white?text=Climb",
+      description: "Trek ~4km towards the base camp."
+    },
+    {
+      time: "11:30 AM",
+      title: "Meadow Section",
+      location: "Trail",
+      image: "https://placehold.co/200x200/84cc16/white?text=Meadow",
+      description: "Enjoy the scenic meadows and take a rest."
+    },
+    {
+      time: "01:00 PM - 02:00 PM",
+      title: "Reach Base Camp",
+      location: "Kedarkantha Base Camp (11,250 ft)",
+      image: "https://placehold.co/200x200/f97316/white?text=Base",
+      description: "Arrive at the base camp. Spectacular views of peaks."
+    },
+    {
+      time: "Afternoon",
+      title: "Acclimatization",
+      location: "Base Camp",
+      image: "https://placehold.co/200x200/06b6d4/white?text=Relax",
+      description: "Rest and acclimatize for the summit push."
+    },
+    {
+      time: "07:00 PM",
+      title: "Early Dinner & Sleep",
+      location: "Tents",
+      image: "https://placehold.co/200x200/1e293b/white?text=Sleep",
+      description: "Early dinner and sleep for summit day preparation."
+    }
+  ],
+  "2026-01-22": [
+    {
+      time: "02:30 AM - 03:00 AM",
+      title: "Wake up",
+      location: "Kedarkantha Base Camp",
+      image: "https://placehold.co/200x200/facc15/white?text=Wake",
+      description: "Wake up call and light snacks."
+    },
+    {
+      time: "03:30 AM",
+      title: "Start Summit Climb",
+      location: "Summit Push",
+      image: "https://placehold.co/200x200/e11d48/white?text=Summit",
+      description: "Begin the climb to the peak in the dark under starlight."
+    },
+    {
+      time: "07:00 AM - 08:00 AM",
+      title: "Kedarkantha Summit",
+      location: "Peak (12,500 ft)",
+      image: "https://placehold.co/200x200/38bdf8/white?text=Peak",
+      description: "Reach the summit for sunrise. 360-degree views of Himalayas."
+    },
+    {
+      time: "08:30 AM",
+      title: "Begin Descent",
+      location: "Summit -> Base Camp",
+      image: "https://placehold.co/200x200/94a3b8/white?text=Down",
+      description: "Start descending back to base camp."
+    },
+    {
+      time: "11:30 AM",
+      title: "Back at Base Camp",
+      location: "Base Camp",
+      image: "https://placehold.co/200x200/fbbf24/white?text=Break",
+      description: "Reach base camp for breakfast/lunch."
+    },
+    {
+      time: "01:00 PM",
+      title: "Continue Descent",
+      location: "-> Juda Ka Talab",
+      image: "https://placehold.co/200x200/22c55e/white?text=Walk",
+      description: "Trek down to Juda Ka Talab campsite."
+    },
+    {
+      time: "04:00 PM - 05:00 PM",
+      title: "Reach Juda Ka Talab",
+      location: "Campsite",
+      image: "https://placehold.co/200x200/3b82f6/white?text=Camp",
+      description: "Rest after a long day."
+    },
+    {
+      time: "Night",
+      title: "Dinner & Stay",
+      location: "Tents",
+      image: "https://placehold.co/200x200/4f46e5/white?text=Rest",
+      description: "Celebratory dinner and overnight stay."
+    }
+  ],
+  "2026-01-23": [
+    {
+      time: "07:00 AM",
+      title: "Breakfast",
+      location: "Juda Ka Talab",
+      image: "https://placehold.co/200x200/fbbf24/white?text=Food",
+      description: "Final mountain breakfast."
+    },
+    {
+      time: "08:00 AM",
+      title: "Descend to Sankri",
+      location: "Trail",
+      image: "https://placehold.co/200x200/10b981/white?text=Trek",
+      description: "Walk down the final 4km to Sankri."
+    },
+    {
+      time: "11:00 AM - 12:00 PM",
+      title: "Reach Sankri",
+      location: "Sankri Village",
+      image: "https://placehold.co/200x200/f97316/white?text=Village",
+      description: "Arrive at Sankri. End of trek."
+    },
+    {
+      time: "12:30 PM",
+      title: "Drive to Rishikesh",
+      location: "Road Trip",
+      image: "https://placehold.co/200x200/ef4444/white?text=Drive",
+      description: "Start the long drive back towards Rishikesh (~10-11 hrs)."
+    },
+    {
+      time: "03:30 PM",
+      title: "Lunch Stop",
+      location: "Enroute",
+      image: "https://placehold.co/200x200/8b5cf6/white?text=Lunch",
+      description: "Lunch break on the way."
+    },
+    {
+      time: "08:30 PM - 09:30 PM",
+      title: "Reach Rishikesh",
+      location: "Rishikesh",
+      image: "https://placehold.co/200x200/f472b6/white?text=Rishikesh",
+      description: "Arrive in Rishikesh. Check-in to hotel/hostel."
+    }
+  ],
+  "2026-01-24": [
+    {
+      time: "All Day",
+      title: "Rishikesh Exploration",
+      location: "Rishikesh",
+      image: "https://placehold.co/200x200/ef4444/white?text=Rishikesh",
+      description: "Day reserved for Rafting, Cafe Hopping, and exploring Rishikesh (Laxman Jhula, Beatles Ashram). (Plan TBD)"
+    }
+  ],
+  "2026-01-25": [
+    {
+      time: "TBD",
+      title: "Return to Delhi",
+      location: "Rishikesh -> Delhi",
+      image: "https://placehold.co/200x200/f59e0b/white?text=Bus",
+      description: "Travel back to Delhi (Bus/Train). Overnight stay in Delhi or reach by morning."
+    }
+  ],
+  "2026-01-26": [
+    {
+      time: "Morning",
+      title: "Qutub Minar",
+      location: "Mehrauli",
+      image: "https://placehold.co/200x200/d97706/white?text=Qutub",
+      description: "Visit the UNESCO World Heritage Site, Qutub Minar, the tallest brick minaret in the world."
+    },
+    {
+      time: "Afternoon",
+      title: "Akshardham Temple",
+      location: "New Delhi",
+      image: "https://placehold.co/200x200/be123c/white?text=Temple",
+      description: "Explore the magnificent Swaminarayan Akshardham complex. Note: Phones/Electronics not allowed inside."
+    },
+    {
+      time: "Evening",
+      title: "Leisure / Shopping",
+      location: "Delhi",
+      image: "https://placehold.co/200x200/ec4899/white?text=Shop",
+      description: "Last minute shopping or relaxing dinner."
+    },
+    {
+      time: "08:30 PM",
+      title: "Head to Airport",
+      location: "Indira Gandhi International Airport (DEL)",
+      image: "https://placehold.co/200x200/3b82f6/white?text=Airport",
+      description: "Reach airport for check-in and security."
+    },
+    {
+      time: "10:55 PM",
+      title: "Flight to Bangalore",
+      location: "DEL -> BLR",
+      image: "https://placehold.co/200x200/06b6d4/white?text=Fly",
+      description: "Board flight back home."
+    }
+  ],
+  "2026-01-27": [
+    {
+      time: "02:00 AM",
+      title: "Home Sweet Home",
+      location: "Bangalore (BLR)",
+      image: "https://placehold.co/200x200/10b981/white?text=Home",
+      description: "Land in Bangalore. Trip Ends! 🏠❤️"
     }
   ]
 };

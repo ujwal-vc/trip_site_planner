@@ -278,8 +278,8 @@ body {
 }
 
 .expanded .day-details {
-  max-height: 1000px;
-  /* Arbitrary large height for expansion */
+  max-height: none;
+  /* Allow infinite height for all content */
   opacity: 1;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
