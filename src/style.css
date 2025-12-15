@@ -501,6 +501,31 @@ body {
     opacity: 1 !important;
     transform: none !important;
   }
+
+  /* Stack schedule items vertically on mobile */
+  .schedule-item {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .schedule-thumb {
+    width: 60px;
+    height: 60px;
+  }
+
+  .schedule-time {
+    min-width: 100%;
+    width: 100%;
+    margin-bottom: 0.25rem;
+    order: -1;
+    /* Move time to top */
+    font-size: 0.85rem;
+  }
+
+  .schedule-info {
+    width: 100%;
+    min-width: 100%;
+  }
 }
 
 /* Footer */
